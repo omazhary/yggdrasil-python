@@ -87,14 +87,26 @@ class EntropyCalculator(SplitCalculator):
 class Yggdrasil:
     """This class contains the mechanics for creating a decision tree"""
 
+    data = None
+
+    def __init__(self, trainingset):
+        if type(trainingset) != list:
+            raise TypeError("Your data must be in the form of a list.")
+        else:
+            self.data = trainingset
+            print self.data
+
+    def build_tree(self):
+        pass
 
 
 
 if __name__ == "__main__":
     print "Welcome to Yggdrasil!!"
     print "Reading your data..."
-    #input_source = TupleInput("file", "", "test.json")
-    root = Node("great-grandpa")
+    input_source = TupleInput("file", "", "test.json")
+    tree = Yggdrasil(input_source.data)
+    """root = Node("great-grandpa")
     tree = Tree(root)
     grandpa = Node("gramps", 1)
     grandpa.add_child(Node("pops", 2))
@@ -105,4 +117,4 @@ if __name__ == "__main__":
     root.add_child(grandpa)
     tree.traverse()
     x = EntropyCalculator()
-    print x.calculate([5, 5, 5, 5, 5, 5])
+    print x.calculate([5, 5, 5, 5, 5, 5])"""
