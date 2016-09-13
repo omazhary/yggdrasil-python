@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import json
+import math
 
 class TupleInput :
     """This class represents the set of data that a user can input for analysis"""
@@ -57,6 +58,37 @@ class Tree:
             for grandchild in child.children:
                 nodes.insert(nodes.index(child) + 1, grandchild)
 
+class SplitCalculator:
+    """This class is an abstract calculator for doing attribute-splits"""
+
+    def calculate(self, dataset):
+        raise NotImplementedError
+
+class EntropyCalculator(SplitCalculator):
+    """This class is an entropy calculator for split decisions"""
+
+    def calculate(self, dataset):
+        entropy_sum = 0.0
+        # Step 1 - Get item probabilities:
+        discrete_values = dict()
+        for datum in dataset:
+            if discrete_values.get(datum, None) != None:
+                discrete_values[datum] += 1.0
+            else:
+                discrete_values[datum] = 1.0
+        for key, value in discrete_values.items():
+            discrete_values[key] = value / len(dataset)
+        # Step 2 - Calculate Entropy:
+        for key, probability in discrete_values.items():
+            entropy_sum = entropy_sum + probability * math.log(probability, 2.0)
+        return 0.0 if entropy_sum == -0.0 else -1 * entropy_sum
+
+
+class Yggdrasil:
+    """This class contains the mechanics for creating a decision tree"""
+
+
+
 
 if __name__ == "__main__":
     print "Welcome to Yggdrasil!!"
@@ -72,3 +104,5 @@ if __name__ == "__main__":
     grandpa.children[1].add_child(Node("cousin", 3))
     root.add_child(grandpa)
     tree.traverse()
+    x = EntropyCalculator()
+    print x.calculate([5, 5, 5, 5, 5, 5])
