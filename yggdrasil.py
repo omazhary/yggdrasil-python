@@ -97,7 +97,11 @@ class Yggdrasil:
             print self.data
 
     def build_tree(self):
-        pass
+        # Step 1 - Enumerate Attributes
+
+        # Step 2 - Get Attribute Entropies and Determine Min. Entropy
+
+        # Step 3 - Add Selected Attribute to Tree with Decision Result
 
 
 
